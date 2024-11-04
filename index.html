@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>MAAS Client Library & CLI</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Home";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> MAAS Client Library & CLI
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Home</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Client</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="client/index.html">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="client/nodes.html">Nodes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="client/networking.html">Networking</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="client/interfaces.html">Interfaces</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="client/events.html">Events</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="client/other.html">Others</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="development/releasing.html">Release checklist</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="development/adding-an-object.html">Adding an object</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MAAS Client Library & CLI</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Home</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/canonical/python-libmaas/edit/master/docs/index.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1>Welcome to MAAS's new command-line tool &amp; Python client library</h1>
+
+<p><em>python-libmaas</em> provides:</p>
+<ul>
+<li>
+<p>A command-line tool for working with MAAS servers.</p>
+</li>
+<li>
+<p>A rich and stable Python client library for interacting with MAAS 2.0+
+  servers. This can be used in a synchronous/blocking mode, or an
+  asynchronous/non-blocking mode based on <a href="https://docs.python.org/3/library/asyncio.html">asyncio</a>.</p>
+</li>
+<li>
+<p>A lower-level Python client library, auto-generated to match the MAAS
+  server it&rsquo;s interacting with.</p>
+</li>
+</ul>
+<p>For MAAS <em>server</em> documentation, visit
+<a href="https://docs.ubuntu.com/maas/">docs.ubuntu.com</a>.</p>
+<hr />
+<p>This is <strong>ALPHA</strong> software. We are converging on a finished product, but
+until we release a beta all APIs could change.</p>
+<hr />
+<h2 id="installation">Installation</h2>
+<p>Either work from a branch:</p>
+<pre class="codehilite"><code class="language-console">$ git clone https://github.com/canonical/python-libmaas.git
+$ cd python-libmaas
+$ make
+</code></pre>
+
+<p>Or install with <a href="https://pip.pypa.io/">pip</a> into a
+<a href="https://virtualenv.readthedocs.org/">virtualenv</a>:</p>
+<pre class="codehilite"><code class="language-console">$ virtualenv --python=python3 amc &amp;&amp; source amc/bin/activate
+$ pip install git+https://github.com/canonical/python-libmaas.git
+</code></pre>
+
+<p>Or install from <a href="https://pypi.python.org/">PyPI</a>:</p>
+<pre class="codehilite"><code class="language-console">$ virtualenv --python=python3 amc &amp;&amp; source amc/bin/activate
+$ pip install python-libmaas
+</code></pre>
+
+<p><strong>Note</strong> that PyPI may lag the others.</p>
+<p>This documentation assumes you&rsquo;re working from a branch or in a
+virtualenv. In practice this means it will use partially qualified paths
+like <code>bin/maas</code> instead of bare <code>maas</code> invocations. If you&rsquo;ve
+installed from PyPI the <code>maas</code> command will probably be installed on
+your shell&rsquo;s <code>PATH</code> so you can invoke it as <code>maas</code>.</p>
+<h2 id="command-line">Command-line</h2>
+<p>Best place to start with the CLI is the help menu.</p>
+<pre class="codehilite"><code class="language-console">$ bin/maas help
+$ bin/maas help commands
+</code></pre>
+
+<p>Once your have familiarized yourself with the available commands you will
+want to login to your MAAS. You can either pass arguments to login or it
+will ask your for the needed information to login.</p>
+<pre class="codehilite"><code class="language-console">$ bin/maas login
+</code></pre>
+
+<p>The CLI supports multiple profiles with <code>login</code>. Use <code>profiles</code> and
+<code>switch</code> to view and change between profiles.</p>
+<pre class="codehilite"><code class="language-console">$ bin/maas profiles
+┌─────────┬─────────────────────────────────────┬────────┐
+│ Profile │ URL                                 │ Active │
+├─────────┼─────────────────────────────────────┼────────┤
+│ admin   │ http://localhost:5240/MAAS/api/2.0/ │ ✓      │
+│ other   │ http://localhost:5240/MAAS/api/2.0/ │        │
+└─────────┴─────────────────────────────────────┴────────┘
+$ bin/maas switch other
+$ bin/maas profiles
+┌─────────┬─────────────────────────────────────┬────────┐
+│ Profile │ URL                                 │ Active │
+├─────────┼─────────────────────────────────────┼────────┤
+│ admin   │ http://localhost:5240/MAAS/api/2.0/ │        │
+│ other   │ http://localhost:5240/MAAS/api/2.0/ │ ✓      │
+└─────────┴─────────────────────────────────────┴────────┘
+</code></pre>
+
+<p>The <code>nodes</code>, <code>machines</code>, <code>devices</code>, and <code>controllers</code> provide access
+to either all nodes with <code>nodes</code> or specific node types with <code>machines</code>,
+<code>devices</code>, and <code>controllers</code>.</p>
+<pre class="codehilite"><code class="language-console">$ bin/maas nodes
+┌────────────────────┬───────────────┐
+│ Hostname           │ Type          │
+├────────────────────┼───────────────┤
+│ another            │ Device        │
+│ blake-ubnt-desktop │ Regiond+rackd │
+│ testing            │ Device        │
+│ win2016            │ Machine       │
+└────────────────────┴───────────────┘
+$ bin/maas machines
+┌──────────┬───────┬────────┬───────┬───────┬────────┐
+│ Hostname │ Power │ Status │ Arch  │ #CPUs │ RAM    │
+├──────────┼───────┼────────┼───────┼───────┼────────┤
+│ win2016  │ Off   │ Broken │ amd64 │ 4     │ 8.0 GB │
+└──────────┴───────┴────────┴───────┴───────┴────────┘
+$ bin/maas devices
+┌──────────┬───────────────┐
+│ Hostname │ IP addresses  │
+├──────────┼───────────────┤
+│ another  │ 192.168.1.223 │
+│ testing  │ 192.168.1.150 │
+│          │ 192.168.1.143 │
+└──────────┴───────────────┘
+$ bin/maas controllers
+┌────────────────────┬───────────────┬───────┬───────┬─────────┐
+│ Hostname           │ Type          │ Arch  │ #CPUs │ RAM     │
+├────────────────────┼───────────────┼───────┼───────┼─────────┤
+│ blake-ubnt-desktop │ Regiond+rackd │ amd64 │ 8     │ 24.0 GB │
+└────────────────────┴───────────────┴───────┴───────┴─────────┘
+</code></pre>
+
+<p>Tab-completion in <code>bash</code> and <code>tcsh</code> is supported too. For example,
+in <code>bash</code>:</p>
+<pre class="codehilite"><code class="language-console">$ source &lt;(bin/register-python-argcomplete --shell=bash bin/maas)
+$ bin/maas &lt;tab&gt;
+allocate  files  login  nodes  shell  ...
+</code></pre>
+
+<h2 id="client-library">Client library</h2>
+<p>For a developer the simplest entry points into <code>python-libmaas</code> are
+the <code>connect</code> and <code>login</code> functions in <code>maas.client</code>. The former
+connects to a MAAS server using a previously obtained API key, and the
+latter logs-in to MAAS with your username and password. These returns a
+<code>Client</code> object that has convenient attributes for working with MAAS.</p>
+<p>For example, this prints out all interfaces on all machines:</p>
+<pre class="codehilite"><code class="language-python">from maas.client import login
+client = login(
+    &quot;http://localhost:5240/MAAS/&quot;,
+    username=&quot;my_user&quot;, password=&quot;my_pass&quot;,
+)
+tmpl = &quot;{0.hostname} {1.name} {1.mac_address}&quot;
+for machine in client.machines.list():
+    for interface in machine.interfaces:
+        print(tmpl.format(machine, interface))
+</code></pre>
+
+<p>Learn more about the <a href="client/index.html">client</a>.</p>
+<h2 id="shell">Shell</h2>
+<p>There&rsquo;s an interactive shell. If a profile name is given or a default
+profile has been set — see <code>maas profiles --help</code> — this places a
+<code>Client</code> instance in the default namespace (as <code>client</code>) that you
+can use interactively or in a script.</p>
+<p>For the best experience install <a href="https://ipython.org/">IPython</a> first.</p>
+<pre class="codehilite"><code class="language-console">$ bin/maas shell
+Welcome to the MAAS shell.
+...
+</code></pre>
+
+<pre class="codehilite"><code class="language-pycon">&gt;&gt;&gt; origin.Version.read()
+&lt;Version 2.2.0 beta2+bzr5717 [bridging-automatic-ubuntu ...]&gt;
+&gt;&gt;&gt; dir(client)
+[..., 'account', 'boot_resources', ...]
+</code></pre>
+
+<p>Scripts can also be run. For example, given the following <code>script.py</code>:</p>
+<pre class="codehilite"><code class="language-python">print(&quot;Machines:&quot;, len(client.machines.list()))
+print(&quot;Devices:&quot;, len(client.devices.list()))
+print(&quot;Racks:&quot;, len(client.rack_controllers.list()))
+print(&quot;Regions:&quot;, len(client.region_controllers.list()))
+</code></pre>
+
+<p>the following will run it against the default profile:</p>
+<pre class="codehilite"><code class="language-console">$ bin/maas shell script.py
+Machines: 1
+Devices: 0
+Racks: 2
+Regions: 1
+</code></pre>
+
+<h2 id="development">Development</h2>
+<p>It&rsquo;s easy to start hacking on <em>python-libmaas</em>:</p>
+<pre class="codehilite"><code class="language-console">$ git clone git@github.com:maas/python-libmaas.git
+$ cd python-libmaas
+$ make develop
+$ make test
+</code></pre>
+
+<p>Installing <a href="https://ipython.org/">IPython</a> is generally a good idea too:</p>
+<pre class="codehilite"><code class="language-console">$ bin/pip install -UI IPython
+</code></pre>
+
+<p>Pull requests are welcome but authors need to sign the <a href="https://www.ubuntu.com/legal/contributors">Canonical
+contributor license agreement</a> before those PRs can be merged.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="client/index.html" class="btn btn-neutral float-right" title="Introduction">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/canonical/python-libmaas" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+      <span><a href="client/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.6.1
+Build Date UTC : 2024-11-04 04:09:10.750366+00:00
+-->

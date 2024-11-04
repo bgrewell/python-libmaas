@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Introduction - MAAS Client Library & CLI</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Introduction";
+        var mkdocs_page_input_path = "client/index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> MAAS Client Library & CLI
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Client</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Introduction</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#using-login">Using login</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#again-but-asynchronous">Again, but asynchronous</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="nodes.html">Nodes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="networking.html">Networking</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="interfaces.html">Interfaces</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="events.html">Events</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="other.html">Others</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../development/releasing.html">Release checklist</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../development/adding-an-object.html">Adding an object</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MAAS Client Library & CLI</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Client</li>
+      <li class="breadcrumb-item active">Introduction</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/canonical/python-libmaas/edit/master/docs/client/index.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1>The Web API client</h1>
+
+<p>Calling <code>maas.client.connect</code> or <code>maas.client.login</code> (MAAS 2.2+
+only) will return a <code>maas.client.facade.Client</code> instance. This
+provides an easy to understand starting point for working with MAAS&rsquo;s
+Web API.</p>
+<h2 id="an-example">An example</h2>
+<pre class="codehilite"><code class="language-python">#!/usr/bin/env python3.6
+
+import maas.client
+
+# Replace … with an API key previously obtained by hand from
+# http://$host:$port/MAAS/account/prefs/.
+client = maas.client.connect(
+    &quot;http://localhost:5240/MAAS/&quot;, apikey=&quot;…&quot;)
+
+# Get a reference to self.
+myself = client.users.whoami()
+assert myself.is_admin, &quot;%s is not an admin&quot; % myself.username
+
+# Check for a MAAS server capability.
+version = client.version.get()
+assert &quot;devices-management&quot; in version.capabilities
+
+# Check the default OS and distro series for deployments.
+print(client.maas.get_default_os())
+print(client.maas.get_default_distro_series())
+
+# Set the HTTP proxy.
+client.maas.set_http_proxy(&quot;http://localhost:3128&quot;)
+
+# Allocate and deploy a machine.
+machine = client.machines.allocate()
+machine.deploy()
+</code></pre>
+
+<h3 id="using-login">Using <code>login</code></h3>
+<p>Alternatively, a client can be obtained from a username and password,
+replacing the call to <code>connect</code> above. This only works in MAAS 2.2 and
+above; below that a <code>LoginNotSupported</code> exception will be raised.</p>
+<pre class="codehilite"><code class="language-python">client = login(
+    &quot;http://localhost:5240/MAAS/&quot;,
+    username=&quot;foo&quot;, password=&quot;bar&quot;,
+)
+</code></pre>
+
+<h3 id="again-but-asynchronous">Again, but asynchronous</h3>
+<p>At first glance <em>python-libmaas</em> appears to be a blocking API, but it&rsquo;s
+actually asynchronous under the skin, based on <a href="https://docs.python.org/3/library/asyncio.html">asyncio</a>. If you call
+into <em>python-libmaas</em> from within a running event loop it will behave
+asynchronously, but called from outside it behaves synchronously, and
+blocks.</p>
+<p>Using <em>python-libmaas</em> interactively, when exploring the library or
+trying something out, is familiar and natural because it behaves as a
+synchronous, blocking API. This mode can be used of in scripts too, but
+the same code can be easily repurposed for use in an asynchronous,
+non-blocking application.</p>
+<p>Below shows the earlier example but implemented in an asynchronous
+style. Note the use of the <code>asynchronous</code> decorator: this is used
+heavily in <em>python-libmaas</em> — along with the <code>Asynchronous</code> metaclass
+— to create the automatic blocking/not-blocking behaviour.</p>
+<pre class="codehilite"><code class="language-python">#!/usr/bin/env python3.6
+
+from maas.client import login
+from maas.client.utils.async import asynchronous
+
+@asynchronous
+async def work_with_maas():
+    client = await login(
+        &quot;http://eucula.local:5240/MAAS/&quot;,
+        username=&quot;gavin&quot;, password=&quot;f00b4r&quot;)
+
+    # Get a reference to self.
+    myself = await client.users.whoami()
+    assert myself.is_admin, &quot;%s is not an admin&quot; % myself.username
+
+    # Check for a MAAS server capability.
+    version = await client.version.get()
+    assert &quot;devices-management&quot; in version.capabilities
+
+    # Check the default OS and distro series for deployments.
+    print(await client.maas.get_default_os())
+    print(await client.maas.get_default_distro_series())
+
+    # Set the HTTP proxy.
+    await client.maas.set_http_proxy(&quot;http://localhost:3128&quot;)
+
+    # Allocate and deploy a machine.
+    machine = await client.machines.allocate()
+    await machine.deploy()
+
+work_with_maas()
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="nodes.html" class="btn btn-neutral float-right" title="Nodes">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/canonical/python-libmaas" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../index.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="nodes.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
